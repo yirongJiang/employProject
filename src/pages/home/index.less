@@ -1,0 +1,84 @@
+@bottom-imgwidth: 16%;
+
+page {
+  background-color: #FFFFFF;
+}
+
+.head-top-wrapper {
+  height: 28%;
+  .head-top {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 90px;
+    line-height: 90px;
+
+    View {}
+  }
+
+  .head-search-input {
+    margin: 29px 0;
+  }
+
+  .head-select {
+    height:26%;
+    width: 100%;
+    display: flex;
+    line-height: 89px;
+    justify-content: space-between;
+
+    View {
+      width: 240px;
+      border-radius: 14px;
+      text-align: center;
+      height: 100%;
+      background: #FFFFFF;
+      box-shadow: 0px 4px 7px 2px rgba(228, 228, 228, 1);
+      color: black;
+    }
+
+    .selected {
+      background-image: linear-gradient(to top right, #38C298, #A1E295);
+      color: azure;
+      text-decoration: underline;
+      border-radius: 0;
+    }
+  }
+}
+
+.home-content {
+  height: 56%;
+  // background-color: red;
+  
+}
+
+.img-wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 750px;
+  height: @bottom-imgwidth;
+  background-color: #FFFFFF;
+  background-image: url('../../asset/底下图标.png');
+
+  Image {
+    display: block;
+    width: 63px;
+    height: 58px;
+    margin: 6px auto;
+  }
+
+  .text-wrapper {
+    
+    font-size: 13px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: #A4D0BE;
+
+    View {
+      margin: 5px 0;
+    }
+  }
+}
