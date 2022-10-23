@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import HeadUI from '../../UI/head-content'
-import { getSchool } from '../../api'
+import { getSchool, getSchoolGuideSearch } from '../../api'
 import { ScrollView, View } from '@tarojs/components'
 import OnlineandPractice from '../../UI/online-practice'
 import { getCurrentInstance } from '@tarojs/taro'
@@ -13,6 +13,11 @@ export default function SchoolGuide() {
   const url = '/pages/school-guide/index'
 
   const loadData = async () => {
+    if (inputValue) {
+      const { data: { data: { list } } } = await getSchoolGuideSearch(inputValue)
+      setData(list)
+      return
+    }
     const { data: { data: { list } } } = await getSchool()
     setData(list)
   }
@@ -26,7 +31,7 @@ export default function SchoolGuide() {
   }
   return (
     <Fragment>
-      <HeadUI selector={schoolLink} />
+      <HeadUI url={url} inputValue={inputValue} selector={schoolLink} />
       <ScrollView
         className='school-outer'
         scrollY

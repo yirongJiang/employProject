@@ -71,6 +71,18 @@
                     "pathName": "pages/news/index",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/school-guide/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/comprehensive/index",
+                    "query": "inputValue=%E4%B9%B3%E6%88%BF%E4%B9%B3%E6%88%BF",
+                    "scene": null
                 }
             ]
         }

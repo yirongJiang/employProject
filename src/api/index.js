@@ -66,42 +66,42 @@ export function getDepartment(params) {
 
 //首页综合搜索接口 TODO
 export function getComprehensiveSearch(params) {
-  return request.get('jyw/common/all/search', { params })
+  return request.get(`jyw/common/all/search?key=${params}`)
 }
 
 //招聘信息搜索 TODO
 export function getRecruitSearch(params) {
-  return request.get('jywclient/recruitment/recruit/search', { params })
+  return request.get(`jyw/homepage/recruitment/search?type=1001&&key=${params}`)
 }
 
 //实习信息搜索 TODO
 export function getPracticeSearch(params) {
-  return request.get('jywclient/recruitment/practice/search', { params })
+  return request.get(`jyw/homepage/recruitment/search?type=1003&&key=${params}`)
 }
 
 //宣讲搜索 TODO
-export function getAnnounceSearch(params) {
-  return request.get('jywclient/careertalkanddoublechoosemeet/search?type=4000', { params })
+export function getPreachSearch(params) {
+  return request.get(`jyw/homepage/speech/search?key=${params}`)
 }
 
 //双选搜索 TODO
 export function getDoubleSearch(params) {
-  return request.get('jywclient/careertalkanddoublechoosemeet/search?type=5000', { params })
+  return request.get(`jyw/homepage/doubleChoice/search?key=${params}`)
 }
 
 //公告搜索 *
-export function getNoticeSearch(params) {
-  return request.get(`jyw/common/bulletin/search?key=${params}&&type=3001`)
+export function getAnnouncementSearch(params) {
+  return request.get(`jyw/common/bulletin/search?type=3001&&key=${params}`)
 }
 
 //政策搜索 TODO
 export function getPolicySearch(params) {
-  return request.get(`jywclient/announcementandpolicy/search?key=${params}&&type=3001`)
+  return request.get(`jyw/common/bulletin/search?type=3002&&key=${params}`)
 }
 
 //就业搜索 *
 export function getCareerSearch(params) {
-  return request.get('jywclient/announcementandpolicy/search?type=0', { params })
+  return request.get(`jyw/common//jobGuide/search?key=${params}`)
 }
 
 //新闻动态搜索 *
@@ -116,10 +116,10 @@ export function getEnterpriseSearch(params) {
 
 //校招指南搜索 *
 export function getSchoolGuideSearch(params) {
-  return request.get('jyw/common//schoolRecruitmentGuide/search', { params })
+  return request.get(`jyw/common//schoolRecruitmentGuide/search?key=${params}`)
 }
 
 //职场活动搜索 * 
 export function getWorkplaceSearch(params) {
-  return request.get('jyw/common//workplaceActivity/search', { params })
+  return request.get(`jyw/common/workplaceActivity/search?key=${params}`)
 }

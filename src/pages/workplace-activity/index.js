@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Fragment } from 'react'
 import HeadUI from '../../UI/head-content'
 import { workplaceLink } from '../../title-links'
-import { getWorkplace } from '../../api'
+import { getWorkplace, getWorkplaceSearch } from '../../api'
 import { ScrollView, View } from '@tarojs/components'
 import OnlineandPractice from '../../UI/online-practice'
 import { getCurrentInstance } from '@tarojs/taro'
@@ -10,9 +10,15 @@ import { getCurrentInstance } from '@tarojs/taro'
 export default function WorkplaceActivity() {
   const [data, setData] = useState([])
   const { inputValue } = getCurrentInstance().router.params
-  const url = '/pages/workplace/index'
+  const url = '/pages/workplace-activity/index'
 
   const loadData = async () => {
+    if (inputValue) {
+      const { data: { data: { list } } } = await getWorkplaceSearch(inputValue)
+      setData(list)
+      console.log('职场')
+      return
+    }
     const { data: { data: { list } } } = await getWorkplace()
     setData(list)
   }
@@ -27,7 +33,7 @@ export default function WorkplaceActivity() {
 
   return (
     <Fragment>
-      <HeadUI selector={workplaceLink} />
+      <HeadUI inputValue={inputValue} url={url} selector={workplaceLink} />
       <ScrollView
         className='workplace-outer'
         scrollY

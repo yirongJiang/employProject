@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import HeadUI from '../../UI/head-content'
 import { careerGuideLink } from '../../title-links'
-import { getCareer } from '../../api'
+import { getCareer, getCareerSearch } from '../../api'
 import { ScrollView, View } from '@tarojs/components'
 import OnlineandPractice from '../../UI/online-practice'
 import { getCurrentInstance } from '@tarojs/taro'
@@ -14,6 +14,11 @@ export default function CareerGuide() {
   const url = '/pages/career-guide/index'
 
   const loadData = async () => {
+    if(inputValue){
+      const {data:{data:{list}}}=await getCareerSearch(inputValue)
+      setData(list)
+      return 
+    }
     const { data: { data: { list } } } = await getCareer()
     setData(list)
   }
@@ -30,7 +35,7 @@ export default function CareerGuide() {
 
   return (
     <Fragment>
-      <HeadUI url={url} selector={careerGuideLink} />
+      <HeadUI inputValue={inputValue} url={url} selector={careerGuideLink} />
       <ScrollView
         className='carrer-guide-outer'
         scrollY

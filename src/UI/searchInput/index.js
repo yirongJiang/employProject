@@ -6,12 +6,12 @@ import './index.less'
 export default function SearchInput(props) {
 
   const [inputValue, setInputValue] = useState(props.inputValue)
-  const { url, isPush} = props
+  const { url, isPush, isCompresive } = props
 
   const handleSearch = (e) => {
     console.log(e.target.value)
     setInputValue(e.target.value)
-    if (e.target.value.trim().length===0) {
+    if (e.target.value.trim().length === 0 && isCompresive!==true&&isPush!==true) {
       Taro.redirectTo({ url: url })
     }
   }

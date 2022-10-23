@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useState, useRef } from 'react'
 import HeadUI from '../../UI/head-content'
 import { doubleLink } from '../../title-links'
 import { getCurrentInstance, useReachBottom } from '@tarojs/taro'
-import { getDouble,getPreach } from '../../api'
+import { getDouble, getDoubleSearch, getPracticeSearch, getPreach, getPreachSearch } from '../../api'
 import OnlineandPractice from '../../UI/online-practice'
 import '../../UI/common-outer/index.less'
 
@@ -20,33 +20,33 @@ export default function DoubleChoose() {
   const { inputValue } = getCurrentInstance().router.params
   const url = '/pages/double-choose/index'
 
-  const outcomes = async (func, params) => {
-    const result = await func(params)
-    console.log('result')
+  const outcomes = async (func1, func2) => {
+    if (inputValue) {
+      const { data:{data:{list}} } = await func2(inputValue)
+      console.log('宣讲双选')
+      console.log(data)
+      setData(list)
+      return
+    }
+    const result = await func1()
     console.log(result)
     setData(result.data.data.list)
   }
 
-  //对宣讲会的数据获取
-  // const listoutcomes = async (func, params) => {
-  //   const result = await func(params)
-  //   console.log(result)
-  //   setData(result.data.data)
-  // }
+
 
   const loadData = () => {
-    outcomes(getPreach, { key: inputValue })
+    outcomes(getPreach, getPreachSearch)
   }
 
   const handleChangeData = (number) => {
     setNumber(number)
     switch (number) {
       case 1:
-        outcomes(getDouble, { key: inputValue })
+        outcomes(getDouble, getDoubleSearch)
         break
       default:
-        // listoutcomes(getAnnounceSearch, { key: inputValue })
-        outcomes(getPreach, { key: inputValue })
+        outcomes(getPreach, getPreachSearch)
     }
   }
 
@@ -54,20 +54,20 @@ export default function DoubleChoose() {
     loadData()
   }, [])
 
-  const scrollLoad=() => { 
+  const scrollLoad = () => {
     console.log('first')
-   }
+  }
 
   return (<Fragment>
-    <HeadUI url={url} handleData={handleChangeData} selector={doubleLink} />
+    <HeadUI inputValue={inputValue} url={url} handleData={handleChangeData} selector={doubleLink} />
     <ScrollView
       className='common-outer'
       scrollY
       scrollWithAnimation
       lowerThreshold='6'
       onScrollToLower={scrollLoad}
-    >   
-      {(data&&data.length !== 0) ?
+    >
+      {(data && data.length !== 0) ?
         data.map((item, index) => {
           return (
             <OnlineandPractice flag={1} name={item.type} detail={item} inputValue={inputValue} />

@@ -13,10 +13,10 @@ export default function OnlineandPractice(props) {
     const index = name.indexOf(keyword)
     if (index !== -1) {
       const inputLength = keyword ? keyword.length : 0
-      console.log(inputLength)
-      console.log('first')
-      console.log(name.substr(0, index))
-      console.log('second')
+      // console.log(inputLength)
+      // console.log('first')
+      // console.log(name.substr(0, index))
+      // console.log('second')
       const finalTitle = <Text><Text>{name.substr(0, index)}</Text> <Text style={{ color: 'red' }}>{keyword}</Text><Text>{name.substr(index + inputLength)}</Text></Text>
       return finalTitle
     }

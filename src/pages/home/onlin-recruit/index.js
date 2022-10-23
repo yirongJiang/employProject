@@ -11,14 +11,15 @@ export default function Recruit() {
 
   const loadData = async () => {
     const { data:{data:{list}} } = await getRecruit()
-    console.log('first')
-    console.log(list)
+    // console.log('first')
+    // console.log(list)
     setList(list)
   }
 
   useEffect(() => {
     loadData()
   }, [])
+  
   return (
     <View className='recruit-outer' >
 

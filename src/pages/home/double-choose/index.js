@@ -8,7 +8,7 @@ export default function Double() {
   const [doubleList, setDoubleList] = useState([])
   const loadData = async () => {
     const {data:{data:{list}}} = await getDouble()
-   console.log(list)
+  //  console.log(list)
     setDoubleList(list)
   }
   useEffect(() => {

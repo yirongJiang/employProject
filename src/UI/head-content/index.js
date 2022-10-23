@@ -6,7 +6,7 @@ import './index.less'
 
 export default function HeadUI(props) {
   const [selectNumber, setSelectNumber] = useState(0)
-  const { url, noSearch,inputValue } = props
+  const { url, noSearch,inputValue,isCompresive} = props
 
   const handleSelector = (index) => {
     setSelectNumber(index)
@@ -21,7 +21,7 @@ export default function HeadUI(props) {
       </View>
       {
         noSearch ? <View className='head-topic'>点击查看自己喜欢的学院吧 </View> : <View className='head-search-input'>
-          <SearchInput url={url}  inputValue={inputValue}  />
+          <SearchInput isCompresive={isCompresive} url={url}  inputValue={inputValue}  />
         </View>
       }
       <View className='headui-selector'>

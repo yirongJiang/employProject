@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import HeadUI from '../../UI/head-content'
 import { announceLink } from '../../title-links'
 import { getCurrentInstance } from '@tarojs/taro'
-import { getNoticeSearch, getPolicySearch,getAnnouncement,getPolicy, getAnnounceSearch} from '../../api'
+import { getAnnouncementSearch, getPolicySearch, getAnnouncement, getPolicy, getAnnounceSearch } from '../../api'
 import { ScrollView, View } from '@tarojs/components'
 import OnlineandPractice from '../../UI/online-practice'
 import './index.less'
@@ -12,12 +12,12 @@ export default function Announcement() {
   const [data, setData] = useState([])
   const { inputValue } = getCurrentInstance().router.params
   const url = '/pages/announcement/index'
-  const outcomes = async (func1, func2) => { 
+  const outcomes = async (func1, func2) => {
     if (inputValue) {
-      const { data } = await func2(inputValue)
+      const { data :{data:{list}}} = await func2(inputValue)
       console.log('公告')
-      // setData(list)
-      console.log(data)
+      setData(list)
+      // console.log(data)
       return
     }
     const result = await func1()
@@ -26,8 +26,8 @@ export default function Announcement() {
   }
 
 
-  const loadData = async() => {
-    outcomes(getAnnouncement,getAnnounceSearch)
+  const loadData = async () => {
+    outcomes(getAnnouncement, getAnnouncementSearch)
   }
 
   const handleChangeData = (number) => {
@@ -38,7 +38,7 @@ export default function Announcement() {
         break
 
       default:
-        outcomes(getAnnouncement, getAnnounceSearch)
+        outcomes(getAnnouncement, getAnnouncementSearch)
     }
   }
 
@@ -53,7 +53,7 @@ export default function Announcement() {
 
   return (
     <Fragment>
-      <HeadUI url={url} selector={announceLink} handleData={handleChangeData}  />
+      <HeadUI inputValue={inputValue} url={url} selector={announceLink} handleData={handleChangeData} />
       <ScrollView
         className='announce-policy-outer'
         scrollY
@@ -64,7 +64,7 @@ export default function Announcement() {
         {(data.length !== 0) ?
           data.map((item, index) => {
             return (
-              <OnlineandPractice flag={1}  detail={item} inputValue={inputValue} />
+              <OnlineandPractice flag={1} detail={item} inputValue={inputValue} />
             )
           }) : <View className='null'> 最近没有企业进校宣讲，
             过一段时间再来看看吧！</View>
