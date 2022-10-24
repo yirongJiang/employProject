@@ -7,7 +7,7 @@ import { getDouble } from '../../../api'
 export default function Double() {
   const [doubleList, setDoubleList] = useState([])
   const loadData = async () => {
-    const {data:{data:{list}}} = await getDouble()
+    const {data:{data:{list}}} = await getDouble(1)
   //  console.log(list)
     setDoubleList(list)
   }

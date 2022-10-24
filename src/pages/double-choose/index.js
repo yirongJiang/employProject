@@ -55,13 +55,12 @@ export default function DoubleChoose() {
   const loadData = () => {
     outcomes(getPreach, getPreachSearch)
   }
-  useEffect(() => {
-    setCurrentpage(1)
-    setDatasource([])
-  }, [number])
+
 
   const handleChangeData = (number) => {
     setNumber(number)
+    setCurrentpage(1)
+    setDatasource([])
     console.log('最新的datasource应该为空')
     console.log(datasource)
     switch (number) {
