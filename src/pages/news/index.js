@@ -9,43 +9,64 @@ import './index.less'
 
 export default function News() {
 
-  const [data, setData] = useState([])
+  const [datasource, setDatasource] = useState([])
   const { inputValue } = getCurrentInstance().router.params
+  const [totalpage, setTotalpage] = useState(0)
+  const [currentpage, setCurrentpage] = useState(1)
   const url = '/pages/news/index'
 
   const loadData = async () => {
     if (inputValue) {
-      const { data: { data: { list } } } = await getNewsSearch(inputValue)
-      setData(list)
+      const { data: { data } } = await getNewsSearch({ inputValue, page: 1 })
+      setDatasource(data.list)
+      setCurrentpage(data.currPage)
+      setTotalpage(data.totalPage)
       console.log('新闻搜索')
       console.log(data)
       return
     }
-    const { data: { data: { list } } } = await getNews()
-    setData(list)
+    const { data: { data } } = await getNews(1)
+    setCurrentpage(data.currPage)
+    setTotalpage(data.totalPage)
+    // console.log('新闻搜索')
+    // console.log(data)
+
+    setDatasource(data.list)
   }
 
   useEffect(() => {
     loadData()
   }, [])
 
-  const scrollLoad = () => {
-    console.log('first')
+  const scrollLoad = async () => {
+    if (totalpage > currentpage) {
+      if (inputValue) {
+        setCurrentpage(currentpage + 1)
+        const { data: { data: { list } } } = await getNewsSearch({ inputValue, page: currentpage })
+        setDatasource(datasource.concat(list))
+        return
+      }
+      setCurrentpage(currentpage + 1)
+      const { data: { data: { list } } } = await getNews(currentpage)
+      setDatasource(datasource.concat(list))
+    }
+    return
+
   }
 
 
   return (
     <Fragment>
-      <HeadUI  inputValue={inputValue} url={url} selector={newsLink} />
+      <HeadUI inputValue={inputValue} url={url} selector={newsLink} />
       <ScrollView
-        className='news-outer'
+        className='common-outer'
         scrollY
         scrollWithAnimation
         lowerThreshold='6'
         onScrollToLower={scrollLoad}
       >
-        {(data.length !== 0) ?
-          data.map((item, index) => {
+        {(datasource.length !== 0) ?
+          datasource.map((item, index) => {
             return (
               <OnlineandPractice flag={1} detail={item} inputValue={inputValue} />
             )

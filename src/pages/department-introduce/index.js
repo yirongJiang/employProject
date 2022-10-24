@@ -30,7 +30,7 @@ export default function DepartmentIntroduce() {
     <Fragment>
       <HeadUI noSearch={true} url={url} selector={departmentLink} />
       <ScrollView
-        className='department-outer'
+        className='common-outer'
         scrollY
         scrollWithAnimation
         lowerThreshold='6'

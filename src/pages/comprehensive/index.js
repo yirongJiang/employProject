@@ -11,21 +11,18 @@ import DoubleUi from '../../UI/doubleui'
 export default function Comprehensive() {
   const [number, setNumber] = useState()
   const { inputValue } = getCurrentInstance().router.params
-  // const [nowInput, setNowInput] = useState(inputValue)
+  const [totalpage, setTotalpage] = useState(0)
+  const [currentpage, setCurrentpage] = useState(1)
   const [data, setData] = useState([])
   const url = '/pages/comprehensive/index'
 
   const outcomes = async (func, params) => {
-    const { data: { data: { list } } } = await func(params)
+    const { data: { data} } = await func(params)
     console.log('综合')
-    console.log(list)
-    setData(list)
+    console.log(data.list)
+    setData(data.list)
   }
 
-  // const outcomes = async (func, params) => {
-  //   const { data: { data } } = await func(params)
-  //   setData(data)
-  // }
 
 
   const handleChangeData = (number) => {
@@ -59,7 +56,7 @@ export default function Comprehensive() {
   return (
     <Fragment>
       <HeadUI url={url} isCompresive={true} inputValue={inputValue} handleData={handleChangeData} selector={comprehensiveLink} />
-      <View className='compressive-outer'>
+      <View className='common-outer'>
         {(data.length !== 0 && number !== 3) ?
           data.map((item, index) => {
             return (

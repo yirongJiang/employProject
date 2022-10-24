@@ -55,7 +55,7 @@ export default function RecruitPractice() {
     <Fragment>
       <HeadUI  inputValue={inputValue} url={url} handleData={handleChangeData1} selector={recruitPracticeLink} />
       <ScrollView
-        className='recruit-practic-outer'
+        className='common-outer'
         scrollY
         scrollWithAnimation
         lowerThreshold='6'

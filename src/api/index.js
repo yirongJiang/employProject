@@ -12,18 +12,29 @@ export function getPractice(params) {
 
 ///宣讲列表
 export function getPreach(params) {
-  return request.get('jyw/homepage/speech/list', { params })
+  return request.get(`jyw/homepage/speech/list?page=${params}`)
 }
 
 //双选列表
 export function getDouble(params) {
-  return request.get('jyw/homepage/doubleChoice/list', { params })
+  return request.get(`jyw/homepage/doubleChoice/list?page=${params}`)
 }
 
 //新闻列表
 export function getNews(params) {
-  return request.get('jyw/common/newsTrends/list', { params })
+  return request.get(`jyw/common/newsTrends/list?page=${params}`)
 }
+
+// export function getNews(params) {
+//   return request({
+//     method:'get',
+//     url:'jyw/common/newsTrends/list',
+//     params:{
+//       params
+//     }
+//   })
+// }
+
 
 //职场活动查询
 
@@ -81,12 +92,12 @@ export function getPracticeSearch(params) {
 
 //宣讲搜索 TODO
 export function getPreachSearch(params) {
-  return request.get(`jyw/homepage/speech/search?key=${params}`)
+  return request.get(`jyw/homepage/speech/search?key=${params.inputValue}&&page=${params.page}`)
 }
 
 //双选搜索 TODO
 export function getDoubleSearch(params) {
-  return request.get(`jyw/homepage/doubleChoice/search?key=${params}`)
+  return request.get(`jyw/homepage/doubleChoice/search?key=${params.inputValue}&&page=${params.page}`)
 }
 
 //公告搜索 *
@@ -106,7 +117,7 @@ export function getCareerSearch(params) {
 
 //新闻动态搜索 *
 export function getNewsSearch(params) {
-  return request(`jyw/common/newsTrends/search?key=${params}`)
+  return request(`jyw/common/newsTrends/search?key=${params.inputValue}&&page=${params.page}`)
 }
 
 //知名企业搜索 * 

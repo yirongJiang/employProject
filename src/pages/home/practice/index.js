@@ -9,6 +9,7 @@ export default function Practice() {
   const [practiceList, setPracticeList] = useState([])
   const loadData = async () => {
     const {data:{data:{list}}} = await getPractice({type:3000})
+    console.log(list)
     setPracticeList(list)
   }
 
@@ -17,7 +18,7 @@ export default function Practice() {
   }, [])
 
   return (
-    <View className='practice-outer'>
+    <View className='common-outer'>
       {practiceList.length ?
         practiceList.map((item) => {
           return (

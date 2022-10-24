@@ -21,7 +21,7 @@ export default function Recruit() {
   }, [])
   
   return (
-    <View className='recruit-outer' >
+    <View className='common-outer' >
 
       {List.length ? List.map((item) => {
         return <OnlineandPractice name='招聘' detail={item} />

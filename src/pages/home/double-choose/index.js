@@ -15,7 +15,7 @@ export default function Double() {
     loadData()
   }, [])
   return (
-    <View className='double-outer' >
+    <View className='common-outer' >
       {doubleList.length ?
         doubleList.map((item) => {
           return <DoubleUi detail={item} />

@@ -30,7 +30,7 @@ export default function Enterprises() {
     <Fragment>
       <HeadUI  url={url} selector={enterprisesLink} />
       <ScrollView
-        className='enterprise-outer'
+        className='common-outer'
         scrollY
         scrollWithAnimation
         lowerThreshold='6'

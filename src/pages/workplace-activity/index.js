@@ -35,7 +35,7 @@ export default function WorkplaceActivity() {
     <Fragment>
       <HeadUI inputValue={inputValue} url={url} selector={workplaceLink} />
       <ScrollView
-        className='workplace-outer'
+        className='common-outer'
         scrollY
         scrollWithAnimation
         lowerThreshold='6'

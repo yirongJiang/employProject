@@ -37,7 +37,7 @@ export default function CareerGuide() {
     <Fragment>
       <HeadUI inputValue={inputValue} url={url} selector={careerGuideLink} />
       <ScrollView
-        className='carrer-guide-outer'
+        className='common-outer'
         scrollY
         scrollWithAnimation
         lowerThreshold='6'

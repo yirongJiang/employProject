@@ -55,7 +55,7 @@ export default function Announcement() {
     <Fragment>
       <HeadUI inputValue={inputValue} url={url} selector={announceLink} handleData={handleChangeData} />
       <ScrollView
-        className='announce-policy-outer'
+        className='Common-outer'
         scrollY
         scrollWithAnimation
         lowerThreshold='6'

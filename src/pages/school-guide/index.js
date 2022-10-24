@@ -33,7 +33,7 @@ export default function SchoolGuide() {
     <Fragment>
       <HeadUI url={url} inputValue={inputValue} selector={schoolLink} />
       <ScrollView
-        className='school-outer'
+        className='common-outer'
         scrollY
         scrollWithAnimation
         lowerThreshold='6'
