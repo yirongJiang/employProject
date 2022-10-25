@@ -2,7 +2,7 @@ import { ScrollView, View } from '@tarojs/components'
 import React, { Fragment, useEffect, useState, useRef } from 'react'
 import HeadUI from '../../UI/head-content'
 import { doubleLink } from '../../title-links'
-import { getCurrentInstance, useReachBottom } from '@tarojs/taro'
+import Taro, { getCurrentInstance, useReachBottom } from '@tarojs/taro'
 import { getDouble, getDoubleSearch, getPracticeSearch, getPreach, getPreachSearch } from '../../api'
 import OnlineandPractice from '../../UI/online-practice'
 import './index.less'
@@ -11,17 +11,31 @@ import '../../UI/common-outer/index.less'
 
 export default function DoubleChoose() {
 
-  DoubleChoose.config = {
-    navigationBarTitleText: '养老待遇发放',
-    onReachBottomDistance: 20
-  }
+  const announceDetailUrl = 'jyw/homepage/preach/detail'
+  const doubleDetailUrl = 'jyw/homepage/doubleChoice/detail'
 
+  const [detailUrl, setDetailUrl] = useState('')
   const [totalpage, setTotalpage] = useState(2)
   const [currentpage, setCurrentpage] = useState(1)
   const [number, setNumber] = useState()
-  const [datasource, setDatasource] = useState([])
   const { inputValue } = getCurrentInstance().router.params
   const url = '/pages/double-choose/index'
+
+  const [datasource, setDatasource] = useState([])
+
+  useEffect(() => {
+    setCurrentpage(1)
+    setDatasource([])
+    if (number === 0) {
+      loadData()
+      return
+    }
+    outcomes(getDouble, getDoubleSearch)
+  }, [number])
+
+  const loadData = () => {
+    outcomes(getPreach, getPreachSearch)
+  }
 
   const outcomes = async (func1, func2) => {
     if (inputValue) {
@@ -37,45 +51,30 @@ export default function DoubleChoose() {
       return
     }
     if (totalpage > currentpage) {
-      console.log('currentPage')
-      console.log(currentpage)
       const { data: { data } } = await func1(currentpage)
-      console.log('data.list')
-      console.log(data.list)
-      // setDatasource(data.list)
       setDatasource(datasource => datasource.concat(data.list))
-      console.log('小黄旋回')
-      console.log(datasource)
-      // setCurrentpage(data.currPage)
       setTotalpage(data.totalPage)
     }
 
   }
 
-  const loadData = () => {
-    outcomes(getPreach, getPreachSearch)
-  }
-
-
   const handleChangeData = (number) => {
     setNumber(number)
     setCurrentpage(1)
     setDatasource([])
-    console.log('最新的datasource应该为空')
-    console.log(datasource)
+    // console.log('最新的datasource应该为空')
+    // console.log(datasource)
     switch (number) {
       case 1:
+        setDetailUrl(doubleDetailUrl)
         outcomes(getDouble, getDoubleSearch)
         break
       default:
+        setDetailUrl(announceDetailUrl)
         outcomes(getPreach, getPreachSearch)
         break
     }
   }
-
-  useEffect(() => {
-    loadData()
-  }, [])
 
   const scrollLoad = () => {
     if (currentpage < totalpage) {
@@ -87,8 +86,13 @@ export default function DoubleChoose() {
         default:
           outcomes(getPreach, getPreachSearch)
       }
+      return
     }
-    console.log(currentpage)
+    Taro.showToast({
+      title: "已经是最后一页啦",
+      duration: 1000
+    });
+    
   }
 
   return (<Fragment>
@@ -103,7 +107,7 @@ export default function DoubleChoose() {
       {(datasource && datasource.length !== 0) ?
         datasource.map((item, index) => {
           return (
-            <OnlineandPractice flag={1} name={item.type} detail={item} inputValue={inputValue} />
+            <OnlineandPractice detailUrl={detailUrl} detailId={item.id} flag={1} name={item.type} detail={item} inputValue={inputValue} />
           )
         }) : <View className='null'>
           {/* 最近没有企业进校宣讲，

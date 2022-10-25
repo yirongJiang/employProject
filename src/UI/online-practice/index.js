@@ -1,11 +1,12 @@
 import { Text, View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import React from 'react'
 import { useRef } from 'react'
 import './index.less'
 
 export default function OnlineandPractice(props) {
 
-  const { detail, inputValue } = props
+  const { detail,detailUrl,inputValue ,id} = props
   const detailName = detail.title
 
   //对关键字进行高亮效果
@@ -23,9 +24,14 @@ export default function OnlineandPractice(props) {
     return
 
   }
+  const navTodetail=()=>{
+    Taro.navigateTo({
+      url:`/pages/detail/index?detailUrl=${detailUrl}?id=${id}`
+    })
+  }
 
   return (
-    <View className={` ${props.flag ? 'detail-wrapper' : 'online-wrapper'}`}>
+    <View onClick={navTodetail} className={` ${props.flag ? 'detail-wrapper' : 'online-wrapper'}`}>
       <View>
         <View className='online-top'>
           <Text className='online-recruit'>【{detail.type.typeName}】</Text>
