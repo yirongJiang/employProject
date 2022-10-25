@@ -83,6 +83,12 @@
                     "pathName": "pages/comprehensive/index",
                     "query": "inputValue=%E4%B9%B3%E6%88%BF%E4%B9%B3%E6%88%BF",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/detail/index",
+                    "query": "type=%E5%AE%A3%E8%AE%B2%E4%BC%9A&detailId=4887",
+                    "scene": null
                 }
             ]
         }

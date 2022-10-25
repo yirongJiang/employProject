@@ -134,3 +134,61 @@ export function getSchoolGuideSearch(params) {
 export function getWorkplaceSearch(params) {
   return request.get(`jyw/common/workplaceActivity/search?key=${params.inputValue}&&page=${params.page}`)
 }
+
+
+//详情界面
+
+//招聘和实习详情
+export function getRecruitDetail(params) {
+  return request.get(`jyw/homepage/recruitment/detail?id=${params}`)
+}
+
+//实习信息搜索 TODO
+// export function getPracticeSearch(params) {
+//   return request.get(`jyw/homepage/recruitment/search?type=1003&&key=${params.inputValue}&&page=${params.page}`)
+// }
+
+//宣讲详情
+export function getPreachDetail(params) {
+  return request.get(`jyw/homepage/preach/detail?id=${params}`)
+}
+
+//双选详情
+export function getDoubleDetail(params) {
+  return request.get(`jyjyw/homepage/doubleChoice/detail?id=${params}`)
+}
+
+//公告详情
+export function getAnnouncementDetail(params) {
+  return request.get(`jyw/common/bulletin/announcement/detail?id=${params}`)
+}
+
+//政策详情
+export function getPolicyDetail(params) {
+  return request.get(`jyw/common/bulletin/policy/detail?id=${params}`)
+}
+
+//就业详情
+export function getCareerDetail(params) {
+  return request.get(`jyw/common/bulletin/policy/detail?id=${params}`)
+}
+
+//新闻动态详情
+export function getNewsDetail(params) {
+  return request(`jyw/common/newsTrends/detail?id=${params}`)
+}
+
+//知名企业详情
+export function getEnterpriseDetail(params) {
+  return request.get(`jyw/common/wellKnownEnterprises/detail?id=${params}`)
+}
+
+//校招指南详情
+export function getSchoolGuideDetail(params) {
+  return request.get(`jyw/common//schoolRecruitmentGuide/detail?id=${params}`)
+}
+
+//职场活动详情
+export function getWorkplaceDetail(params) {
+  return request.get(`jyw/common/workplaceActivity/detail?id=${params}`)
+}

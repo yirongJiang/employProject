@@ -1,13 +1,13 @@
 import { Text, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import React from 'react'
-import { useRef } from 'react'
 import './index.less'
 
 export default function OnlineandPractice(props) {
 
-  const { detail,detailUrl,inputValue ,id} = props
+  const { detail,detailId,inputValue } = props
   const detailName = detail.title
+
 
   //对关键字进行高亮效果
   const fillterTitle = (name, keyword) => {
@@ -26,7 +26,7 @@ export default function OnlineandPractice(props) {
   }
   const navTodetail=()=>{
     Taro.navigateTo({
-      url:`/pages/detail/index?detailUrl=${detailUrl}?id=${id}`
+      url:`/pages/detail/index?type=${detail.type.typeName}&&detailId=${detailId}`
     })
   }
 

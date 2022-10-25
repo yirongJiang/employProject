@@ -2,8 +2,8 @@ import { ScrollView, View } from '@tarojs/components'
 import React, { Fragment, useEffect, useState, useRef } from 'react'
 import HeadUI from '../../UI/head-content'
 import { doubleLink } from '../../title-links'
-import Taro, { getCurrentInstance, useReachBottom } from '@tarojs/taro'
-import { getDouble, getDoubleSearch, getPracticeSearch, getPreach, getPreachSearch } from '../../api'
+import Taro, { getCurrentInstance} from '@tarojs/taro'
+import { getDouble, getDoubleSearch, getPreach, getPreachSearch } from '../../api'
 import OnlineandPractice from '../../UI/online-practice'
 import './index.less'
 import '../../UI/common-outer/index.less'
@@ -11,13 +11,13 @@ import '../../UI/common-outer/index.less'
 
 export default function DoubleChoose() {
 
-  const announceDetailUrl = 'jyw/homepage/preach/detail'
-  const doubleDetailUrl = 'jyw/homepage/doubleChoice/detail'
+  // const announceDetailUrl = 'jyw/homepage/preach/detail'
+  // const doubleDetailUrl = 'jyw/homepage/doubleChoice/detail'
 
-  const [detailUrl, setDetailUrl] = useState('')
+  // const [detailUrl, setDetailUrl] = useState(announceDetailUrl)
   const [totalpage, setTotalpage] = useState(2)
   const [currentpage, setCurrentpage] = useState(1)
-  const [number, setNumber] = useState()
+  const [number, setNumber] = useState(0)
   const { inputValue } = getCurrentInstance().router.params
   const url = '/pages/double-choose/index'
 
@@ -52,6 +52,7 @@ export default function DoubleChoose() {
     }
     if (totalpage > currentpage) {
       const { data: { data } } = await func1(currentpage)
+      console.log(data)
       setDatasource(datasource => datasource.concat(data.list))
       setTotalpage(data.totalPage)
     }
@@ -66,11 +67,11 @@ export default function DoubleChoose() {
     // console.log(datasource)
     switch (number) {
       case 1:
-        setDetailUrl(doubleDetailUrl)
+        // setDetailUrl(doubleDetailUrl)
         outcomes(getDouble, getDoubleSearch)
         break
       default:
-        setDetailUrl(announceDetailUrl)
+        // setDetailUrl(announceDetailUrl)
         outcomes(getPreach, getPreachSearch)
         break
     }
@@ -107,7 +108,7 @@ export default function DoubleChoose() {
       {(datasource && datasource.length !== 0) ?
         datasource.map((item, index) => {
           return (
-            <OnlineandPractice detailUrl={detailUrl} detailId={item.id} flag={1} name={item.type} detail={item} inputValue={inputValue} />
+            <OnlineandPractice  detailId={item.id} flag={1}  detail={item} inputValue={inputValue} />
           )
         }) : <View className='null'>
           {/* 最近没有企业进校宣讲，
