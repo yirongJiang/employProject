@@ -64,7 +64,7 @@ export default function Announcement() {
         {(data.length !== 0) ?
           data.map((item, index) => {
             return (
-              <OnlineandPractice flag={1} detail={item} inputValue={inputValue} />
+              <OnlineandPractice detailId={item.id} flag={1} detail={item} inputValue={inputValue} />
             )
           }) : <View className='null'> 最近没有企业进校宣讲，
             过一段时间再来看看吧！</View>

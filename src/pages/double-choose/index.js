@@ -5,16 +5,11 @@ import { doubleLink } from '../../title-links'
 import Taro, { getCurrentInstance} from '@tarojs/taro'
 import { getDouble, getDoubleSearch, getPreach, getPreachSearch } from '../../api'
 import OnlineandPractice from '../../UI/online-practice'
-import './index.less'
 import '../../UI/common-outer/index.less'
 
 
 export default function DoubleChoose() {
 
-  // const announceDetailUrl = 'jyw/homepage/preach/detail'
-  // const doubleDetailUrl = 'jyw/homepage/doubleChoice/detail'
-
-  // const [detailUrl, setDetailUrl] = useState(announceDetailUrl)
   const [totalpage, setTotalpage] = useState(2)
   const [currentpage, setCurrentpage] = useState(1)
   const [number, setNumber] = useState(0)
@@ -63,15 +58,11 @@ export default function DoubleChoose() {
     setNumber(number)
     setCurrentpage(1)
     setDatasource([])
-    // console.log('最新的datasource应该为空')
-    // console.log(datasource)
     switch (number) {
       case 1:
-        // setDetailUrl(doubleDetailUrl)
         outcomes(getDouble, getDoubleSearch)
         break
       default:
-        // setDetailUrl(announceDetailUrl)
         outcomes(getPreach, getPreachSearch)
         break
     }
@@ -108,12 +99,12 @@ export default function DoubleChoose() {
       {(datasource && datasource.length !== 0) ?
         datasource.map((item, index) => {
           return (
-            <OnlineandPractice  detailId={item.id} flag={1}  detail={item} inputValue={inputValue} />
+            <OnlineandPractice  flag={1}  detail={item} inputValue={inputValue} />
           )
         }) : <View className='null'>
           {/* 最近没有企业进校宣讲，
           过一段时间再来看看吧！ */}
-          下拉刷新试试
+          上下拉动刷新试试
         </View>
       }
     </ScrollView>

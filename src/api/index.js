@@ -155,7 +155,7 @@ export function getPreachDetail(params) {
 
 //双选详情
 export function getDoubleDetail(params) {
-  return request.get(`jyjyw/homepage/doubleChoice/detail?id=${params}`)
+  return request.get(`jyw/homepage/doubleChoice/detail?id=${params}`)
 }
 
 //公告详情
