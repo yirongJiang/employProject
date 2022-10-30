@@ -17,8 +17,8 @@ export default function RecruitPractice() {
   const outcomes = async (func1, func2) => {
     if (inputValue) {
       const { data:{data:{list}} } = await func2(inputValue)
-      // console.log('宣讲双选')
-      // console.log(data)
+      console.log('招聘实习')
+      console.log(data)
       setData(list)
       return
     }

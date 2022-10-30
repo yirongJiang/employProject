@@ -1,0 +1,66 @@
+.detail-wrapper {
+  height: 100vh;
+  background-color: #24c2bf;
+  padding-top: 1px;
+  overflow: scroll;
+  background-size: cover;
+  font-weight: bold;
+  color: white;
+
+  .content {
+    line-height: 80px;
+    width: 86%;
+    padding: 20px;
+    margin: 180px auto;
+    border-radius: 27px;
+    background: linear-gradient(145deg, #27d0cc, #20afac);
+    box-shadow: 14px 14px 15px #0e4e4c,
+      -14px -14px 15px #3affff;
+    overflow: hidden;
+    font-family: 'yjsz';
+
+    font-family: electronicFont;
+
+    .content-title {
+      width: 80%;
+      font-size: 40px;
+      /* 黄色 */
+      text-align: center;
+      margin: 60px auto;
+    }
+
+
+    .content-title::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 40px;
+      border-radius: 40px 0 0 0;
+      background-color: #3affff;
+      border: black 3px solid;
+    }
+
+    .content-tips {
+      color:red
+    }
+
+    .content-main {
+      overflow-x: scroll;
+
+      p,
+      span {
+        background: transparent !important;
+
+      }
+    }
+
+  }
+
+  .trylatter {
+    width: 50vw;
+    height: 50vh;
+    margin: 30%;
+    color: #001f3f;
+    font-size: 50px;
+  }
+}

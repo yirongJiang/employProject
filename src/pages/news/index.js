@@ -28,8 +28,8 @@ export default function News() {
     const { data: { data } } = await getNews(1)
     setCurrentpage(data.currPage)
     setTotalpage(data.totalPage)
-    // console.log('新闻搜索')
-    // console.log(data)
+    console.log('新闻搜索')
+    console.log(data)
 
     setDatasource(data.list)
   }

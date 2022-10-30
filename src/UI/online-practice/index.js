@@ -5,9 +5,9 @@ import './index.less'
 
 export default function OnlineandPractice(props) {
 
-  const { detail,inputValue } = props
-  const {id:detailId}=detail
-  const {type:{typeName}}=detail
+  const { detail, inputValue } = props
+  const { id: detailId } = detail
+  const { type: { typeName } } = detail
   const detailName = detail.title
 
 
@@ -22,13 +22,49 @@ export default function OnlineandPractice(props) {
     return
 
   }
-  const navTodetail=()=>{
-  switch(typeName){
-    case '宣讲会':
-      Taro.navigateTo({
-        url:`/pages/preachDetail/index?detailId=${detailId}`
-      })
-  }
+  const navTodetail = () => {
+    switch (typeName) {
+      case '宣讲会':
+        Taro.navigateTo({
+          url: `/pages/preachDetail/index?detailId=${detailId}`
+        })
+        break;
+      case '双选会':
+        Taro.navigateTo({
+          url: `/pages/doubleDetail/index?detailId=${detailId}`
+        })
+        break
+      case '招聘':
+        Taro.navigateTo({
+          url: `/pages/recruitDetail/index?detailId=${detailId}`
+        })
+        break
+      case '实习':
+        Taro.navigateTo({
+          url: `/pages/recruitDetail/index?detailId=${detailId}`
+        })
+        break
+      case '新闻动态':
+        Taro.navigateTo({
+          url: `/pages/newsDetail/index?detailId=${detailId}`
+        })
+        break
+      case '职场活动':
+        Taro.navigateTo({
+          url: `/pages/workplaceDetail/index?detailId=${detailId}`
+        })
+        break
+      case '公告':
+        Taro.navigateTo({
+          url: `/pages/announceDetail/index?detailId=${detailId}`
+        })
+        break
+      case '政策':
+        Taro.navigateTo({
+          url: `/pages/policyDetail/index?detailId=${detailId}`
+        })
+        break
+    }
   }
 
   return (

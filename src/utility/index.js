@@ -9,14 +9,35 @@ export const dealString = (str) => {
     if (char === "<") {
       flag = false
     }
-    if (flag && char !== ">") {
+    if (char === "&") {
+      flag = false
+    }
+    // if (char === "n") {
+    //   flag = false
+    // }
+    // if (char === "b") {
+    //   flag = false
+    // }
+    // if (char === "s") {
+    //   flag = false
+    // }
+    // if (char === "p") {
+    //   flag = false
+    // }
+    if (char === ";") {
+      flag = false
+    }
+    // if (flag && char !== "p") {
+    //   result = result + char;
+    // }
+    if (flag && char !== ">" ) {
       result = result + char;
     }
   }
   return result;
 }
 
-export const  downLoad = (http) => {
+export const downLoad = (http) => {
   Taro.showToast({
     title: '正在下载请稍后',
     icon: 'success',

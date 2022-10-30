@@ -20,6 +20,7 @@ export default function WorkplaceActivity() {
       return
     }
     const { data: { data: { list } } } = await getWorkplace()
+    console.log(list)
     setData(list)
   }
 
