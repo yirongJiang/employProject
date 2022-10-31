@@ -8,6 +8,8 @@ export default defineAppConfig({
     'pages/workplaceDetail/index',
     'pages/announceDetail/index',
     'pages/policyDetail/index',
+    'pages/careerguideDetail/index',
+    'pages/enterpriseDetail/index',
     'pages/newsDetail/index',
     'pages/double-choose/index',
     'pages/workplace-activity/index',

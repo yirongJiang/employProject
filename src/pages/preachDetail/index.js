@@ -22,6 +22,7 @@ export default function Detail() {
     const httpResult = dealString(dataSource.content)
     downLoad(httpResult)
   }
+  
   return (
     <View className='detail-wrapper'>
       {

@@ -2,7 +2,7 @@ import { ScrollView, View } from '@tarojs/components'
 import React, { Fragment, useEffect, useState, useRef } from 'react'
 import HeadUI from '../../UI/head-content'
 import { doubleLink } from '../../title-links'
-import Taro, { getCurrentInstance} from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { getDouble, getDoubleSearch, getPreach, getPreachSearch } from '../../api'
 import OnlineandPractice from '../../UI/online-practice'
 import '../../UI/common-outer/index.less'
@@ -19,18 +19,14 @@ export default function DoubleChoose() {
   const [datasource, setDatasource] = useState([])
 
   useEffect(() => {
-    setCurrentpage(1)
-    setDatasource([])
-    if (number === 0) {
-      loadData()
-      return
+    switch (number) {
+      default:
+        outcomes(getPreach, getPreachSearch)
+        break
+      case 1:
+        outcomes(getDouble, getDoubleSearch)
     }
-    outcomes(getDouble, getDoubleSearch)
-  }, [number])
-
-  const loadData = () => {
-    outcomes(getPreach, getPreachSearch)
-  }
+  }, [currentpage, number])
 
   const outcomes = async (func1, func2) => {
     if (inputValue) {
@@ -58,33 +54,18 @@ export default function DoubleChoose() {
     setNumber(number)
     setCurrentpage(1)
     setDatasource([])
-    switch (number) {
-      case 1:
-        outcomes(getDouble, getDoubleSearch)
-        break
-      default:
-        outcomes(getPreach, getPreachSearch)
-        break
-    }
   }
 
   const scrollLoad = () => {
     if (currentpage < totalpage) {
       setCurrentpage(currentpage => currentpage + 1)
-      switch (number) {
-        case 1:
-          outcomes(getDouble, getDoubleSearch)
-          break
-        default:
-          outcomes(getPreach, getPreachSearch)
-      }
       return
     }
     Taro.showToast({
       title: "已经是最后一页啦",
       duration: 1000
     });
-    
+
   }
 
   return (<Fragment>
@@ -97,9 +78,9 @@ export default function DoubleChoose() {
       onScrollToLower={scrollLoad}
     >
       {(datasource && datasource.length !== 0) ?
-        datasource.map((item, index) => {
+        datasource?.map((item, index) => {
           return (
-            <OnlineandPractice  flag={1}  detail={item} inputValue={inputValue} />
+            <OnlineandPractice flag={1} detail={item} inputValue={inputValue} />
           )
         }) : <View className='null'>
           {/* 最近没有企业进校宣讲，

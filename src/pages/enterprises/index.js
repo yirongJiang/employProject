@@ -15,6 +15,7 @@ export default function Enterprises() {
 
   const loadData = async () => {
     const { data: { data: { list } } } = await getEnterprises()
+    console.log(list)
     setData(list)
   }
 

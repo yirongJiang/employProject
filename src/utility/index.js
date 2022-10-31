@@ -49,9 +49,34 @@ export const downLoad = (http) => {
     success: function (res) {
       // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
       var filePath = res.tempFilePath;
+      var fileType = ''
+      switch (item.attachArr[0].attachmentNames.split('.')[1]) {
+        case 'doc':
+          fileType = 'doc'
+          break;
+        case 'xls':
+          fileType = 'xls'
+          break;
+        case 'ppt':
+          fileType = 'ppt'
+          break;
+        case 'pdf':
+          fileType = 'pdf'
+          break;
+        case 'docx':
+          fileType = 'docx'
+          break;
+        case 'xlsx':
+          fileType = 'xlsx'
+          break;
+        case 'pptx':
+          fileType = 'pptx'
+          break;
+          
+      }
       Taro.openDocument({
         filePath: filePath,
-        fileType: 'docx',
+        fileType: fileType,
         success: function (res) {
           Taro.showToast({
             title: '文档打开成功',

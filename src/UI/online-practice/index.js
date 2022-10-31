@@ -64,6 +64,16 @@ export default function OnlineandPractice(props) {
           url: `/pages/policyDetail/index?detailId=${detailId}`
         })
         break
+      case '就业指导':
+        Taro.navigateTo({
+          url: `/pages/careerguideDetail/index?detailId=${detailId}`
+        })
+        break
+      case '知名企业':
+        Taro.navigateTo({
+          url: `/pages/enterpriseDetail/index?detailId=${detailId}&&typeName=${typeName}`
+        })
+        break
     }
   }
 

@@ -2,12 +2,12 @@ import request from "./request";
 
 //招聘
 export function getRecruit(params) {
-  return request.get('jyw/homepage/recruitment/list?type=1001', { params })
+  return request.get(`jyw/homepage/recruitment/list?type=1001&&page=${params}`)
 }
 
 //实习
 export function getPractice(params) {
-  return request.get(`jyw/homepage/recruitment/list?type=1003`, { params })
+  return request.get(`jyw/homepage/recruitment/list?type=1003&&page=${params}`)
 }
 
 ///宣讲列表
@@ -170,7 +170,7 @@ export function getPolicyDetail(params) {
 
 //就业详情
 export function getCareerDetail(params) {
-  return request.get(`jyw/common/bulletin/policy/detail?id=${params}`)
+  return request.get(`jyw/common/jobGuide/detail?id=${params}`)
 }
 
 //新闻动态详情
