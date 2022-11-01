@@ -46,32 +46,32 @@ export default function OnlineandPractice(props) {
         break
       case '新闻动态':
         Taro.navigateTo({
-          url: `/pages/newsDetail/index?detailId=${detailId}`
+          url: `/pages/somecommonDetail/index?detailId=${detailId}&&typeName=${typeName}`
         })
         break
       case '职场活动':
         Taro.navigateTo({
-          url: `/pages/workplaceDetail/index?detailId=${detailId}`
+          url: `/pages/somecommonDetail/index?detailId=${detailId}&&typeName=${typeName}`
         })
         break
       case '公告':
         Taro.navigateTo({
-          url: `/pages/announceDetail/index?detailId=${detailId}`
+          url: `/pages/somecommonDetail/index?detailId=${detailId}&&typeName=${typeName}`
         })
         break
       case '政策':
         Taro.navigateTo({
-          url: `/pages/policyDetail/index?detailId=${detailId}`
+          url: `/pages/somecommonDetail/index?detailId=${detailId}&&typeName=${typeName}`
         })
         break
       case '就业指导':
         Taro.navigateTo({
-          url: `/pages/careerguideDetail/index?detailId=${detailId}`
+          url: `/pages/somecommonDetail/index?detailId=${detailId}&&typeName=${typeName}`
         })
         break
       case '知名企业':
         Taro.navigateTo({
-          url: `/pages/enterpriseDetail/index?detailId=${detailId}&&typeName=${typeName}`
+          url: `/pages/somecommonDetail/index?detailId=${detailId}&&typeName=${typeName}`
         })
         break
     }
