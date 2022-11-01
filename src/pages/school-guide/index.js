@@ -3,31 +3,44 @@ import HeadUI from '../../UI/head-content'
 import { getSchool, getSchoolGuideSearch } from '../../api'
 import { ScrollView, View } from '@tarojs/components'
 import OnlineandPractice from '../../UI/online-practice'
-import { getCurrentInstance } from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { schoolLink } from '../../title-links'
 import './index.less'
 
 export default function SchoolGuide() {
-  const [data, setData] = useState([])
+
+  const [totalpage, setTotalpage] = useState(2)
+  const [currentpage, setCurrentpage] = useState(1)
+  const [datasource, setDatasource] = useState([])
   const { inputValue } = getCurrentInstance().router.params
   const url = '/pages/school-guide/index'
 
   const loadData = async () => {
     if (inputValue) {
-      const { data: { data: { list } } } = await getSchoolGuideSearch(inputValue)
-      setData(list)
+      const { data: { data } } = await getSchoolGuideSearch({ inputValue, page: currentpage })
+      console.log(data)
+      setTotalpage(data.totalPage)
+      setDatasource(datasource.concat(data.list))
       return
     }
-    const { data: { data: { list } } } = await getSchool()
-    setData(list)
+    const { data: { data } } = await getSchool(currentpage)
+    setTotalpage(data.totalPage)
+    setDatasource(datasource.concat(data.list))
   }
 
   useEffect(() => {
     loadData()
-  }, [])
+  }, [currentpage])
 
   const scrollLoad = () => {
-    console.log('first')
+    if (totalpage > currentpage) {
+      setCurrentpage(currentpage + 1)
+      return
+    }
+    Taro.showToast({
+      title: '已经是最后一页啦',
+      duration: 1000
+    })
   }
   return (
     <Fragment>
@@ -39,8 +52,8 @@ export default function SchoolGuide() {
         lowerThreshold='6'
         onScrollToLower={scrollLoad}
       >
-        {(data.length !== 0) ?
-          data.map((item, index) => {
+        {(datasource.length !== 0) ?
+          datasource.map((item, index) => {
             return (
               <OnlineandPractice flag={1} detail={item} inputValue={inputValue} />
             )

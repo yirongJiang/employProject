@@ -4,56 +4,43 @@ import { newsLink } from '../../title-links'
 import { getNews, getNewsSearch } from '../../api'
 import { ScrollView, View } from '@tarojs/components'
 import OnlineandPractice from '../../UI/online-practice'
-import { getCurrentInstance } from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import './index.less'
 
 export default function News() {
 
   const [datasource, setDatasource] = useState([])
   const { inputValue } = getCurrentInstance().router.params
-  const [totalpage, setTotalpage] = useState(0)
+  const [totalpage, setTotalpage] = useState(2)
   const [currentpage, setCurrentpage] = useState(1)
   const url = '/pages/news/index'
 
   const loadData = async () => {
     if (inputValue) {
-      const { data: { data } } = await getNewsSearch({ inputValue, page: 1 })
-      setDatasource(data.list)
-      setCurrentpage(data.currPage)
+      const { data: { data } } = await getNewsSearch({ inputValue, page: currentpage })
       setTotalpage(data.totalPage)
-      console.log('新闻搜索')
-      console.log(data)
+      setDatasource(datasource.concat(data.list))
       return
     }
-    const { data: { data } } = await getNews(1)
-    setCurrentpage(data.currPage)
+    const { data: { data } } = await getNews(currentpage)
     setTotalpage(data.totalPage)
-    console.log('新闻搜索')
-    console.log(data)
-
-    setDatasource(data.list)
+    setDatasource(datasource.concat(data.list))
   }
 
   useEffect(() => {
     loadData()
-  }, [])
+  }, [currentpage])
 
-  const scrollLoad = async () => {
+  const scrollLoad =  () => {
     if (totalpage > currentpage) {
-      if (inputValue) {
-        setCurrentpage(currentpage + 1)
-        const { data: { data: { list } } } = await getNewsSearch({ inputValue, page: currentpage })
-        setDatasource(datasource.concat(list))
-        return
-      }
       setCurrentpage(currentpage + 1)
-      const { data: { data: { list } } } = await getNews(currentpage)
-      setDatasource(datasource.concat(list))
+      return
     }
-    return
-
+    Taro.showToast({
+      title: '已经是最后一页啦',
+      duration: 1000
+    })
   }
-
 
   return (
     <Fragment>

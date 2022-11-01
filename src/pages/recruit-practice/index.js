@@ -29,25 +29,16 @@ export default function RecruitPractice() {
 
   const outcomes = async (func1, func2) => {
     if (inputValue) {
-      if (currentpage === 1) {
-        const { data: { data } } = await func2({ inputValue, page: currentpage })
-        setTotalpage(data.totalPage)
-        setDatasource(data.list)
-        return
-      } else if (totalpage > currentpage && currentpage !== 1) {
-        const { data: { data } } = await func2({ inputValue, page: currentpage })
-        setDatasource(datasource.concat(data.list))
-      }
-      return
-    }
-    if (totalpage > currentpage) {
-      const { data: { data } } = await func1(currentpage)
+      const { data: { data } } = await func2({ inputValue, page: currentpage })
       console.log(data)
-      setDatasource(datasource => datasource.concat(data.list))
       setTotalpage(data.totalPage)
+      setDatasource(datasource.concat(data.list))
       return
     }
-
+    const { data: { data } } = await func1(currentpage)
+    console.log(data)
+    setDatasource(datasource => datasource.concat(data.list))
+    setTotalpage(data.totalPage)
   }
 
 

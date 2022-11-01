@@ -39,37 +39,37 @@ export function getNews(params) {
 //职场活动查询
 
 export function getWorkplace(params) {
-  return request.get('jyw/common/workplaceActivity/list', { params })
+  return request.get(`jyw/common/workplaceActivity/list?page=${params}`)
 }
 
 //公告 查询接口
 export function getAnnouncement(params) {
-  return request.get('jyw/common/bulletin/list?type=3001', { params })
+  return request.get(`jyw/common/bulletin/list?type=3001&&page=${params}`)
 }
 
 //政策 查询接口
 export function getPolicy(params) {
-  return request.get('jyw/common/bulletin/list?type=3002', { params })
+  return request.get(`jyw/common/bulletin/list?type=3002&&page=${params}`)
 }
 
 //就业指导查询接口
 export function getCareer(params) {
-  return request.get('jyw/common/jobGuide/list', { params })
+  return request.get(`jyw/common/jobGuide/list?page=${params}`)
 }
 
 //知名企业
 export function getEnterprises(params) {
-  return request.get('jyw/common/wellKnownEnterprises/list', { params })
+  return request.get(`jyw/common/wellKnownEnterprises/list?page=${params}`)
 }
 
 //校招指南查询接口
 export function getSchool(params) {
-  return request.get('jyw/common/schoolRecruitmentGuide/list', { params })
+  return request.get(`jyw/common/schoolRecruitmentGuide/list?page=${params}`)
 }
 
 //学院风采查询接口
 export function getDepartment(params) {
-  return request.get('jyw/double/department/list', { params })
+  return request.get(`jyw/double/department/list?page=${params}`)
 }
 
 

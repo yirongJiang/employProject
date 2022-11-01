@@ -27,7 +27,11 @@ export default function Comprehensive() {
   const handleChangeData = (number) => {
     setNumber(number)
     setCurrentpage(1)
-    setDatasource([])
+    setDatasource([]) 
+  }
+
+
+  useEffect(() => {
     switch (number) {
       case 1:
         outcomes(getRecruitSearch, { inputValue, page: currentpage })
@@ -46,38 +50,14 @@ export default function Comprehensive() {
         break
       default:
         outcomes(getComprehensiveSearch, { inputValue, page: currentpage })
+        break
     }
-  }
-
-
-  useEffect(() => {
-    outcomes(getComprehensiveSearch, { inputValue, page: currentpage })
-  }, [])
+  }, [currentpage, number])
 
 
   const scrollLoad = () => {
     if (currentpage < totalpage) {
       setCurrentpage(currentpage => currentpage + 1)
-      switch (number) {
-        case 1:
-          outcomes(getRecruitSearch, { inputValue, page: currentpage })
-          break
-        case 2:
-          outcomes(getPracticeSearch, { inputValue, page: currentpage })
-          break
-        case 3:
-          outcomes(getDoubleSearch, { inputValue, page: currentpage })
-          break
-        case 4:
-          outcomes(getAnnouncementSearch, { inputValue, page: currentpage })
-          break
-        case 5:
-          setDatasource([])
-          break
-        default:
-          outcomes(getComprehensiveSearch, { inputValue, page: currentpage })
-          break
-      }
       return
     }
 

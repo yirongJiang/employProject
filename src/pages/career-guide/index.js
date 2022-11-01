@@ -4,31 +4,42 @@ import { careerGuideLink } from '../../title-links'
 import { getCareer, getCareerSearch } from '../../api'
 import { ScrollView, View } from '@tarojs/components'
 import OnlineandPractice from '../../UI/online-practice'
-import { getCurrentInstance } from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import './index.less'
 
 
 export default function CareerGuide() {
-  const [data, setData] = useState([])
+  const [datasource, setDatasource] = useState([])
   const { inputValue } = getCurrentInstance().router.params
+  const [totalpage, setTotalpage] = useState(2)
+  const [currentpage, setCurrentpage] = useState(1)
   const url = '/pages/career-guide/index'
 
   const loadData = async () => {
-    if(inputValue){
-      const {data:{data:{list}}}=await getCareerSearch(inputValue)
-      setData(list)
-      return 
+    if (inputValue) {
+      const { data: { data } } = await getCareerSearch({ inputValue, page: currentpage })
+      setTotalpage(data.totalPage)
+      setDatasource(datasource.concat(data.list))
+      return
     }
-    const { data: { data: { list } } } = await getCareer()
-    setData(list)
+    const { data: { data } } = await getCareer(currentpage)
+    setTotalpage(data.totalPage)
+    setDatasource(datasource.concat(data.list))
   }
 
   useEffect(() => {
     loadData()
-  }, [])
+  }, [currentpage])
 
-  const scrollLoad = () => {
-    console.log('first')
+  const scrollLoad =  () => {
+    if (totalpage > currentpage) {
+      setCurrentpage(currentpage + 1)
+      return
+    }
+    Taro.showToast({
+      title: '已经是最后一页啦',
+      duration: 1000
+    })
   }
 
 
@@ -43,8 +54,8 @@ export default function CareerGuide() {
         lowerThreshold='6'
         onScrollToLower={scrollLoad}
       >
-        {(data.length !== 0) ?
-          data.map((item, index) => {
+        {(datasource.length !== 0) ?
+          datasource.map((item, index) => {
             return (
               <OnlineandPractice flag={1} detail={item} inputValue={inputValue} />
             )

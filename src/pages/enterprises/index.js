@@ -1,30 +1,46 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import HeadUI from '../../UI/head-content'
-import { getEnterprises } from '../../api'
+import { getEnterprises, getEnterpriseSearch } from '../../api'
 import { ScrollView, View } from '@tarojs/components'
 import OnlineandPractice from '../../UI/online-practice'
-import { getCurrentInstance } from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { enterprisesLink } from '../../title-links'
 import './index.less'
 
 export default function Enterprises() {
 
-  const [data, setData] = useState([])
+  const [totalpage, setTotalpage] = useState(2)
+  const [currentpage, setCurrentpage] = useState(1)
+  const [datasource, setDatasource] = useState([])
   const { inputValue } = getCurrentInstance().router.params
   const url = '/pages/career-guide/index'
 
+  
   const loadData = async () => {
-    const { data: { data: { list } } } = await getEnterprises()
-    console.log(list)
-    setData(list)
+    if (inputValue) {
+      const { data: { data } } = await getEnterpriseSearch({ inputValue, page: currentpage })
+      setTotalpage(data.totalPage)
+      setDatasource(datasource.concat(data.list))
+      return
+    }
+    const { data: { data } } = await getgui(currentpage)
+    setTotalpage(data.totalPage)
+    setDatasource(datasource.concat(data.list))
   }
 
   useEffect(() => {
     loadData()
-  }, [])
+  }, [currentpage])
 
-  const scrollLoad = () => {
-    console.log('first')
+  const scrollLoad =  () => {
+    if (totalpage > currentpage) {
+      setCurrentpage(currentpage + 1)
+      return
+    }
+    Taro.showToast({
+      title: '已经是最后一页啦',
+      duration: 1000
+    })
   }
 
   return (
@@ -37,8 +53,8 @@ export default function Enterprises() {
         lowerThreshold='6'
         onScrollToLower={scrollLoad}
       >
-        {(data.length !== 0) ?
-          data.map((item, index) => {
+        {(datasource.length !== 0) ?
+          datasource.map((item, index) => {
             return (
               <OnlineandPractice flag={1} detail={item} inputValue={inputValue} />
             )

@@ -5,31 +5,41 @@ import { workplaceLink } from '../../title-links'
 import { getWorkplace, getWorkplaceSearch } from '../../api'
 import { ScrollView, View } from '@tarojs/components'
 import OnlineandPractice from '../../UI/online-practice'
-import { getCurrentInstance } from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 
 export default function WorkplaceActivity() {
-  const [data, setData] = useState([])
+  const [datasource, setDatasource] = useState([])
+  const [totalpage, setTotalpage] = useState(2)
+  const [currentpage, setCurrentpage] = useState(1)
   const { inputValue } = getCurrentInstance().router.params
   const url = '/pages/workplace-activity/index'
 
   const loadData = async () => {
     if (inputValue) {
-      const { data: { data: { list } } } = await getWorkplaceSearch(inputValue)
-      setData(list)
-      console.log('职场')
+      const { data: { data } } = await getWorkplaceSearch({ inputValue, page: currentpage })
+      setTotalpage(data.totalPage)
+      setDatasource(datasource.concat(data.list))
       return
     }
-    const { data: { data: { list } } } = await getWorkplace()
-    console.log(list)
-    setData(list)
+    const { data: { data } } = await getWorkplace(currentpage)
+    setTotalpage(data.totalPage)
+    setDatasource(datasource.concat(data.list))
   }
+
 
   useEffect(() => {
     loadData()
-  }, [])
+  }, [currentpage])
 
   const scrollLoad = () => {
-    console.log('first')
+    if (totalpage > currentpage) {
+      setCurrentpage(currentpage + 1)
+      return
+    }
+    Taro.showToast({
+      title: '已经是最后一页啦',
+      duration: 1000
+    })
   }
 
   return (
@@ -42,8 +52,8 @@ export default function WorkplaceActivity() {
         lowerThreshold='6'
         onScrollToLower={scrollLoad}
       >
-        {(data.length !== 0) ?
-          data.map((item, index) => {
+        {(datasource.length !== 0) ?
+          datasource.map((item, index) => {
             return (
               <OnlineandPractice flag={1} detail={item} inputValue={inputValue} />
             )
